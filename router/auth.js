@@ -15,14 +15,21 @@ const authController = require(path.join(
 
 const validatorHelper = require(path.join(rootDir, "utils", "Validator"));
 
-router.get("/login", authController.getLoginAction);
+const isLogged = (req, res, next) => {
+  console.log(req.session);
+  if (req.session.uid) return res.redirect("/videos");
+  next();
+};
 
-router.post("/login", authController.postLoginAction);
+router.get("/login", isLogged, authController.getLoginAction);
 
-router.get("/signup", authController.getSignupAction);
+router.post("/login", isLogged, authController.postLoginAction);
+
+router.get("/signup", isLogged, authController.getSignupAction);
 
 router.post(
   "/signup",
+  isLogged,
   [
     body("username", "Enter a valid username").isLength({ min: 4, max: 15 }),
     validatorHelper.email("email"),
@@ -37,6 +44,13 @@ router.post(
   authController.postSignupAction
 );
 
-router.get("/auth/forgot", authController.getForgotAction);
+router.get("/forgot", isLogged, authController.getForgotAction);
+
+router.post(
+  "/forgot",
+  isLogged,
+  body("email").isEmail().withMessage("Enter a Valid Email"),
+  authController.postForgotAction
+);
 
 module.exports = router;

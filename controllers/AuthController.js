@@ -1,7 +1,9 @@
 const { validationResult } = require("express-validator");
+
 const User = require("../models/user");
 const ResetToken = require("../models/reset-token");
 const bcrypt = require("bcrypt");
+const res = require("express/lib/response");
 
 class AuthController {
   static getLoginAction(req, res, next) {
@@ -12,7 +14,7 @@ class AuthController {
   }
 
   static async postLoginAction(req, res, next) {
-    const SUCCESS_URL = "/";
+    const SUCCESS_URL = "/videos";
     const Error_URL = "/login";
     const errorMessage = "Email or Password is not valid";
     try {
@@ -32,6 +34,7 @@ class AuthController {
       );
 
       if (validPassword) {
+        req.session.uid = result.dataValues.id;
         return res.redirect(SUCCESS_URL);
       } else {
         req.flash("error", errorMessage);
@@ -74,7 +77,17 @@ class AuthController {
     }
   }
 
-  static async getForgotAction() {}
+  static getForgotAction(req, res) {
+    res.render("auth/forgot");
+  }
+
+  static async postForgotAction(req, res) {
+    const errors = validationResult(req).errors;
+
+    if (errors.length) {
+      return res.redirect("/login");
+    }
+  }
 }
 
 module.exports = AuthController;
