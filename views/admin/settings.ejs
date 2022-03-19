@@ -1,10 +1,47 @@
 <!doctype html>
 <html>
-<% include head.ejs %>
+<%- include ('../head') %>
 <body>
+    <%- include('../navigation.ejs'); %>
+    <div>
+        <form method="post" action="/admin/settings">
+            <div>
+                <label for="Video Types">Select Video Types</label>
+                <input type="checkbox" name="option-youtube" id="option-youtube">
+                <label for="option-youtube">Youtube</label>
+                <input type="checkbox" name="option-computer" id="option-computer">
+                <label for="option-computer">Computer</label>
 
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+
+                <input type="checkbox" name="option-vimeo" id="option-vimeo">
+                <label for="option-vimeo">Vimeo</label>
+
+                <input type="checkbox" name="option-embed" id="option-embed">
+                <label for="option-embed">Embed Code</label>
+
+            </div>
+
+            <div>
+                <label for="Upload Size">Max Video Upload Size</label>
+                <input type="text" name="video-size" id="video-size">
+            </div>
+
+            <div>
+                <label for="Auto Play">Auto Play</label>
+                <input type="radio" name="auto-play" value="yes" checked> Yes
+                <input type="radio" name="auto-play" value="no"> No
+            </div>
+
+            <div>
+                <label for="Youtube Key">Youtube Api Key</label>
+                <input type="text" name="youtube-key" id="youtube-key">
+            </div>
+
+            <div>
+                <input type="submit" value="submit">
+            </div>
+
+        </form>
+    </div>
 </body>
 </html>

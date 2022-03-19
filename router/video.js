@@ -20,4 +20,8 @@ const isLogged = (req, res, next) => {
 
 router.get("/", isLogged, videoController.getHomeAction);
 
+router.get("/video-upload", isLogged, videoController.getVideoUploadAction);
+
+router.post("/video-upload", isLogged, videoController.postVideoUploadAction);
+
 module.exports = router;

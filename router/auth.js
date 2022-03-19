@@ -16,7 +16,6 @@ const authController = require(path.join(
 const validatorHelper = require(path.join(rootDir, "utils", "Validator"));
 
 const isLogged = (req, res, next) => {
-  console.log(req.session);
   if (req.session.uid) return res.redirect("/videos");
   next();
 };

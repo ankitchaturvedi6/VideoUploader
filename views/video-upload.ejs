@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<%- include ('head') %>
+<body>
+    <%- include('navigation.ejs'); %>
+
+    <% if(params && params.size) { %> 
+        <div class="flex items-center justify-center">
+            <div class="m-4">
+                <form method="post" action="/videos/video-upload" enctype="multipart/form-data">
+                    <div class="mt-4">
+                        Post New Video    
+                    </div>
+
+                    <div class="mt-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-1" for="title">Video Title</label><br>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="title" id="title" class="">
+                    </div>
+
+                    <div class="mt-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-1" for="video-option">Select Video Type</label>
+                        <br>
+                        <% if(params.has('youtube')) { %> 
+                        <input type="radio" name="video-option" id="option-youtube" value="youtube" checked>
+                        <label for="option-youtube">Youtube</label>
+                        <br>
+                        <% } %> 
+
+                        <% if(params.has('computer')) { %> 
+
+                        <input type="radio" name="video-option" id="option-computer" value="computer" checked>
+                        <label for="option-computer">My Computer</label>
+                        <br>
+                        <% } %> 
+                        
+                        <% if(params.has('vimeo')) { %> 
+                        <input type="radio" name="video-option" id="option-vimeo" value="vimeo" checked>
+                        <label for="option-vimeo">Vimeo</label>
+                        <br>
+                        <% } %> 
+
+                        <% if(params.has('embed')) { %> 
+                        <input type="radio" name="video-option" id="option-embed" value="embed" checked>
+                        <label for="option-embed">Embed Code</label>
+                        <% } %> 
+
+                    </div>
+
+                    <div class="mt-6">
+                        <div class="hidden" id="upload-type-computer">
+                            <div class="mb-3 w-96">
+                                <label for="file-computer" class="form-label inline-block mb-2 text-gray-700">Upload Video From Device</label>
+                                <input class="form-control
+                                block
+                                w-full
+                                px-2
+                                py-1.5
+                                text-xl
+                                font-normal
+                                text-gray-700
+                                bg-white bg-clip-padding
+                                border border-solid border-gray-300
+                                rounded
+                                transition
+                                ease-in-out
+                                m-0
+                                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="file-computer" name="file-computer" accept="video/mp4" type="file">
+                              </div>
+                        </div>
+
+                        <div class="hidden" id="upload-type-url">
+                            <label class="block text-gray-700 text-sm font-bold mb-1" for="video-url">Video Url</label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="video-url" id="video-url">
+                        </div>
+
+                        <input type="hidden" name="video-type">
+                    </div>
+
+                    <div class="mt-6">
+                        <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="Upload Video" name="">
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    <% } else { %> 
+        <div class="flex items-center justify-center">
+            <p class="bg-red-400">Please Ask Admin To Enable Video Upload</p>
+        </div>
+    <% } %>
+
+
+    <script type="text/javascript" src="/scripts/upload.js"></script>
+
+</body>
+</html>

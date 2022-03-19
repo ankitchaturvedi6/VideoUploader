@@ -13,6 +13,8 @@ const adminController = require(path.join(
   "AdminController"
 ));
 
-// router.get("/settings", adminController.getSettingsAction);
+router.get("/settings", adminController.getSettingsAction);
+
+router.post("/settings", adminController.postSettingsAction);
 
 module.exports = router;
